@@ -1,4 +1,5 @@
-const Commands = require("../Commands");
+// const Commands = require("../Commands");
+import Commands from "../Commands.js";
 
 class Homepage {
 
@@ -103,4 +104,5 @@ class Homepage {
 
 
 }
-module.exports = Homepage;
+// module.exports = Homepage;
+export default Homepage;

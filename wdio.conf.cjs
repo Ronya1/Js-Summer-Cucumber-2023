@@ -5,6 +5,11 @@ exports.config = {
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
+        // specify the esm loader for step definitions
+        mochaOpts: {
+            require: ['esm'],
+            // other mocha options...
+        },
     //
     // ==================
     // Specify Test Files
@@ -128,7 +133,7 @@ exports.config = {
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        require: ['./step-definitions/**/*.js'],
+        require: ['./step-definitions/**/*.mjs'],
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)

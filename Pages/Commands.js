@@ -103,4 +103,5 @@ class Commands {
 
 
 }
-module.exports = Commands;
+// module.exports = Commands;
+export default Commands;
