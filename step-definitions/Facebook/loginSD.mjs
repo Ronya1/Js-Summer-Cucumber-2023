@@ -1,5 +1,5 @@
 // const { Given, Then, When } = require("@wdio/cucumber-framework");
-import { Given, Then, When } from "@wdio/cucumber-framework";
+import { Given, Then, When,  } from "@wdio/cucumber-framework";
 // const { expect } = require("chai");
 import * as chai from "chai";
 const { expect } = chai;
@@ -12,9 +12,26 @@ const loginpage = new Loginpage();
 
 
 
-
-Given(/^I am on facebook landing page$/, async function(){
-    await browser.url('/')
+// OG CODE 
+// Given(/^I am on facebook landing page$/, async function(){
+//     await browser.url('/')
+// });
+//CONVERTED TO THE BELOW - But very confusing why hes doing hotels and Darksky from FB step definitions. 
+Given(/^I am on (facebook|hotels|darksky) homepage$/, async function(urlName) {
+    switch (urlName.toLowerCase()) {
+        case 'facebook':
+            await browser.url('/');
+            break;
+        case 'hotels':
+            await browser.url('https://www.hotels.com/');
+            break;
+        case 'darksky':
+            await browser.url('https://www.darksky.net/');
+            break;    
+        default:
+            await browser.url('/');
+            break;
+    }
 });
 
 Then(/^I verify login username field is enabled$/, async function(){
@@ -33,17 +50,36 @@ Then(/^I verify login button field is enabled$/, async function(){
 
 // // Second Test Case 
 // When(/^I enter "(.*)" as username$/, async function (username) {
-//   expect(await homepage.enterLoginEmail(username), 'login email field is NOT enabled').to.be.true;
+//   await homepage.enterLoginEmail(username)
 // });
 
 // When(/^I enter "(.*)" as password$/, async function (password) {
 //   await homepage.enterLoginPassword(password);
 // });
+// Combingin the above 2 functions into 1 below 
+When(/^I enter "(.+)" as (username|password)$/, async function(value, fieldName) {
+    switch(fieldName) {
+        case 'username':
+            await homepage.enterLoginEmail(value);
+            break;
+        case 'password':
+            await homepage.enterLoginPassword(value);
+            break;            
+    }
+});
 
-// When(/^I click login button$/, async function () {
-//   await homepage.clickLoginButton();
-// });
 
-// Then(/^I verify error is deiplayed$/, async function () {
-//   expect(await loginpage.isLoginErrDisplayed(), 'Login error is NOT displayed').to.be.true
-// });
+When(/^I click login button$/, async function () {
+  await homepage.clickLoginButton();
+});
+
+Then(/^I verify error is displayed$/, async function () {
+  expect(await loginpage.isLoginErrDisplayed(), 'Login error is NOT displayed').to.be.true;
+  // Check the locator for the error message thats probably why its coming out false
+  await browser.pause(2000)
+});
+
+Then(/^I verify (.+) links on the homepage$/, async function(count) {
+    const links = await homepage.getAllLinks();
+    expect(links.length, 'Links of Homepage is not as expected').to.equal(Number(count));
+});

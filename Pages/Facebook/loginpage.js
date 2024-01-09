@@ -6,7 +6,7 @@ class Loginpage {
     commands = new Commands();
 
     // Locators of login page webElement
-    loginErrorLocator = '//div[contains(text(),"The email address or mobile number")]';
+    loginErrorLocator = '//div[contains(text(),"The email or mobile number you entered isn")]';
 
 
     // Function in order to interact with login page web elements

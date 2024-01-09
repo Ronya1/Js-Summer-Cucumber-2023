@@ -11,3 +11,6 @@ when creating classes you need to do:
         import { Given, Then, When } from "@wdio/cucumber-framework";
         import * as chai from "chai";
         const { expect } = chai;
+
+        to run files based on cjs and mjs file types do 
+            npx wdio run wdio.conf.cjs --spec ./features/Facebook/Login.feature 
