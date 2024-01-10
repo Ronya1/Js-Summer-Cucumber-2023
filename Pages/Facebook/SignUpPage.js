@@ -1,5 +1,7 @@
-const MyStringFunctions = require("../../Utils/MyStringFunctions");
-const Commands = require("../Commands");
+// const MyStringFunctions = require("../../Utils/MyStringFunctions");
+import MyStringFunctions from "../../Utils/MyStringFunctions";
+import Commands from "../Commands.js";
+// const Commands = require("../Commands");
 
 class SignUpPage {
 
@@ -39,4 +41,5 @@ class SignUpPage {
 
 
 }
-module.exports = SignUpPage;
+// module.exports = SignUpPage;
+export default SignUpPage;
